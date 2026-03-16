@@ -14,6 +14,9 @@
 package common
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/perses/spec/go/common"
 )
 
@@ -27,4 +30,17 @@ func ValidateID(name string) error {
 // DEPRECATED: this is replaced by the struct github.com/perses/spec/go/common.ValidateDescription
 func ValidateDescription(description string) error {
 	return common.ValidateDescription(description)
+}
+
+// ValidateTimezone checks for the forbidden timezone
+func ValidateTimezone(timezone string) error {
+	if timezone == "" || timezone == "local" {
+		return nil
+	}
+
+	_, err := time.LoadLocation(timezone)
+	if err != nil {
+		return fmt.Errorf("%q is not a valid timezone: %w", timezone, err)
+	}
+	return nil
 }
