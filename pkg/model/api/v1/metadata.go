@@ -216,7 +216,8 @@ func NewProjectMetadata(project string, name string) *ProjectMetadata {
 // without breaking the Project attribute (the fact Metadata is injected line in
 // ProjectMetadata caused Project string to be ignored when unmarshalling)
 type ProjectMetadataWrapper struct {
-	Project string `json:"project" yaml:"project"`
+	Project           string `json:"project" yaml:"project"`
+	DashboardTimezone string `json:"dashboardTimezone" yaml:"dashboardTimezone"`
 }
 
 func (p *ProjectMetadataWrapper) UnmarshalJSON(data []byte) error {

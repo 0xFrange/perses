@@ -116,6 +116,7 @@ export function DashboardList(props: DashboardListProperties): ReactElement {
           navigate(`/projects/${targetedDashboard.metadata.project}/dashboard/new`, {
             state: {
               name: dashboardInfo.dashboard,
+              dashboardTimezone: dashboardInfo.dashboardTimezone,
               spec: {
                 ...targetedDashboard.spec,
                 ...{

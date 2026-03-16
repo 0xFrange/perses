@@ -30,6 +30,7 @@ export interface CreateDashboardState {
   name: string;
   spec?: DashboardSpec;
   tags?: string[];
+  dashboardTimezone?: string;
 }
 
 /**
@@ -56,6 +57,7 @@ function CreateDashboardView(): ReactElement | null {
       project: projectName,
       version: 0,
       tags: state.tags ?? [],
+      dashboardTimezone: state.dashboardTimezone,
     },
     spec: state.spec ?? {
       display: {

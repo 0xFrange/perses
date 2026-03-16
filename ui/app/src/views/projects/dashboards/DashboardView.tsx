@@ -48,6 +48,7 @@ function DashboardView(): ReactElement | null {
       if (data.kind !== 'Dashboard') {
         throw new Error('Invalid kind');
       }
+
       return updateDashboardMutation.mutateAsync(data, {
         onSuccess: (updatedDashboard: DashboardResource) => {
           successSnackbar(

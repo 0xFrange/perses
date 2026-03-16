@@ -17,13 +17,15 @@ import {
   Button,
   Chip,
   CircularProgress,
+  FormControl,
   FormControlLabel,
+  InputLabel,
   MenuItem,
   Stack,
   Switch,
   TextField,
 } from '@mui/material';
-import { Dialog } from '@perses-dev/components';
+import { Dialog, TimeZoneSelector } from '@perses-dev/components';
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DashboardSelector, EphemeralDashboardInfo, getResourceDisplayName, ProjectResource } from '@perses-dev/core';
@@ -112,14 +114,24 @@ const DashboardDuplicationForm = (props: DuplicationFormProps): ReactElement => 
   const dashboardForm = useForm<CreateDashboardValidationType>({
     resolver: dashboardSchemaValidation ? zodResolver(dashboardSchemaValidation) : undefined,
     mode: 'onBlur',
-    defaultValues: { dashboardName: '', projectName: projects[0]?.metadata.name ?? '', tags: [] },
+    defaultValues: {
+      dashboardName: '',
+      projectName: projects[0]?.metadata.name ?? '',
+      tags: [],
+      dashboardTimeZone: { value: '', display: '' },
+    },
   });
 
   const handleProcessDashboardForm = useCallback((): SubmitHandler<CreateDashboardValidationType> => {
     return (data) => {
       onClose();
       if (onSuccess) {
-        onSuccess({ project: data.projectName, dashboard: data.dashboardName, tags: data.tags } as DashboardSelector);
+        onSuccess({
+          project: data.projectName,
+          dashboard: data.dashboardName,
+          tags: data.tags,
+          dashboardTimezone: data.dashboardTimeZone.value,
+        } as DashboardSelector);
       }
     };
   }, [onClose, onSuccess]);
@@ -149,7 +161,7 @@ const DashboardDuplicationForm = (props: DuplicationFormProps): ReactElement => 
     <FormProvider {...dashboardForm}>
       <form onSubmit={dashboardForm.handleSubmit(handleProcessDashboardForm())}>
         <Dialog.Content sx={{ width: '100%' }}>
-          <Stack gap={1}>
+          <Stack gap={2}>
             {!hideProjectSelect && (
               <Controller
                 control={dashboardForm.control}
@@ -184,7 +196,6 @@ const DashboardDuplicationForm = (props: DuplicationFormProps): ReactElement => 
                 <TextField
                   {...field}
                   required
-                  margin="dense"
                   id="name"
                   label="Dashboard Name"
                   type="text"
@@ -231,6 +242,26 @@ const DashboardDuplicationForm = (props: DuplicationFormProps): ReactElement => 
                   )}
                 />
               )}
+            />
+            <Controller
+              name="dashboardTimeZone"
+              control={dashboardForm.control}
+              render={({ field: { onChange, value: timezoneObject }, fieldState: { error } }) => {
+                return (
+                  <FormControl fullWidth variant="outlined" error={!!error}>
+                    <InputLabel id="timezone-selector-label">Dashboard Timezone</InputLabel>
+                    <TimeZoneSelector
+                      labelId="timezone-selector-label"
+                      label="Dashboard Timezone"
+                      variant="compact"
+                      value={timezoneObject.value}
+                      onChange={(tz) => {
+                        onChange(tz);
+                      }}
+                    />
+                  </FormControl>
+                );
+              }}
             />
           </Stack>
         </Dialog.Content>

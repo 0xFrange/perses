@@ -36,16 +36,34 @@ export const tagsValidationSchema = z
   .default([])
   .transform((tags) => Array.from(new Set(tags.map((tag) => tag.toLowerCase()))));
 
+const timezoneSchema = z.object({
+  value: z.string().refine(
+    (val) => {
+      if (['', 'local'].includes(val)) return true;
+      try {
+        Intl.DateTimeFormat(undefined, { timeZone: val });
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    { message: 'Invalid timezone value' }
+  ),
+  display: z.string(),
+});
+
 export const createDashboardDialogValidationSchema = z.object({
   projectName: nameSchema,
   dashboardName: dashboardDisplayNameValidationSchema,
   tags: tagsValidationSchema,
+  dashboardTimeZone: timezoneSchema,
 });
 export type CreateDashboardValidationType = z.infer<typeof createDashboardDialogValidationSchema>;
 
 export const editDashboardDialogValidationSchema = z.object({
   dashboardName: dashboardDisplayNameValidationSchema,
   tags: tagsValidationSchema,
+  dashboardTimeZone: timezoneSchema,
 });
 export type EditDashboardValidationType = z.infer<typeof editDashboardDialogValidationSchema>;
 

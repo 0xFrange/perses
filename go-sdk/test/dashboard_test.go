@@ -38,6 +38,7 @@ import (
 func TestDashboardBuilder(t *testing.T) {
 	builder, buildErr := dashboard.New("ContainersMonitoring",
 		dashboard.Name("Containers monitoring"),
+		dashboard.Timezone("Europe/London"),
 		dashboard.ProjectName("MyProject"),
 		dashboard.Description("A dashboard to monitor containers"),
 
@@ -129,7 +130,7 @@ func TestDashboardBuilder(t *testing.T) {
 	)
 
 	builderOutput, marshErr := json.Marshal(builder.Dashboard)
-	outputJSONFilePath := filepath.Join("..", "..", "internal", "test", "dac", "expected_output.json")
+	outputJSONFilePath := filepath.Join(".", "expected_output.json")
 	expectedOutput, readErr := os.ReadFile(outputJSONFilePath)
 
 	t.Run("classic dashboard", func(t *testing.T) {
@@ -143,6 +144,7 @@ func TestDashboardBuilder(t *testing.T) {
 func TestDashboardBuilderWithGroupedVariables(t *testing.T) {
 	builder, buildErr := dashboard.New("ContainersMonitoring",
 		dashboard.Name("Containers monitoring"),
+		dashboard.Timezone("Europe/London"),
 		dashboard.ProjectName("MyProject"),
 		dashboard.Description("A dashboard to monitor containers"),
 
@@ -237,7 +239,7 @@ func TestDashboardBuilderWithGroupedVariables(t *testing.T) {
 
 	builderOutput, marshErr := json.Marshal(builder.Dashboard)
 
-	outputJSONFilePath := filepath.Join("..", "..", "internal", "test", "dac", "expected_output.json")
+	outputJSONFilePath := filepath.Join(".", "expected_output.json")
 	expectedOutput, readErr := os.ReadFile(outputJSONFilePath)
 
 	t.Run("dashboard with grouped variables", func(t *testing.T) {

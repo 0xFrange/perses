@@ -27,6 +27,7 @@ export interface Metadata {
 
 export interface ProjectMetadata extends Metadata {
   project: string;
+  dashboardTimezone?: string;
 }
 
 export interface Resource {

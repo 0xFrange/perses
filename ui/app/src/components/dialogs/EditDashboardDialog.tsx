@@ -36,12 +36,14 @@ interface EditDashboardDialogProps {
  */
 export const EditDashboardDialog = (props: EditDashboardDialogProps): ReactElement => {
   const { dashboard, open, onClose, onSuccess } = props;
+
   const form = useForm<EditDashboardValidationType>({
     resolver: zodResolver(editDashboardDialogValidationSchema),
     mode: 'onBlur',
     defaultValues: {
       dashboardName: getResourceDisplayName(dashboard),
       tags: dashboard.metadata.tags ?? [],
+      dashboardTimeZone: { value: dashboard.metadata.dashboardTimezone, display: dashboard.metadata.dashboardTimezone },
     },
   });
   const { reset } = form;
@@ -65,6 +67,7 @@ export const EditDashboardDialog = (props: EditDashboardDialogProps): ReactEleme
       metadata: {
         ...dashboard.metadata,
         tags: data.tags,
+        dashboardTimezone: data.dashboardTimeZone?.value,
       },
       spec: {
         ...dashboard.spec,

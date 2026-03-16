@@ -19,6 +19,7 @@ import { DurationString } from './time';
 import { VariableDefinition } from './variables';
 import { Display } from './display';
 
+/* TODO: Should we put the timezone into the ProjectMetaData? */
 export interface DashboardResource {
   kind: 'Dashboard';
   metadata: ProjectMetadata;
@@ -40,4 +41,5 @@ export interface DashboardSelector {
   project: string;
   dashboard: string;
   tags?: string[];
+  dashboardTimezone?: string;
 }

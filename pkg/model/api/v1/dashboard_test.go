@@ -45,7 +45,8 @@ func TestMarshalDashboard(t *testing.T) {
 						Name: "SimpleDashboard",
 					},
 					ProjectMetadataWrapper: ProjectMetadataWrapper{
-						Project: "perses",
+						Project:           "perses",
+						DashboardTimezone: "Europe/London",
 					},
 				},
 				Spec: dashboard.Spec{
@@ -97,7 +98,8 @@ func TestMarshalDashboard(t *testing.T) {
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
-    "project": "perses"
+    "project": "perses",
+    "dashboardTimezone": "Europe/London"
   },
   "spec": {
     "panels": {
@@ -151,7 +153,8 @@ func TestMarshalDashboard(t *testing.T) {
 						Name: "SimpleDashboard",
 					},
 					ProjectMetadataWrapper: ProjectMetadataWrapper{
-						Project: "perses",
+						Project:           "perses",
+						DashboardTimezone: "Europe/London",
 					},
 				},
 				Spec: dashboard.Spec{
@@ -237,7 +240,8 @@ func TestMarshalDashboard(t *testing.T) {
     "createdAt": "0001-01-01T00:00:00Z",
     "updatedAt": "0001-01-01T00:00:00Z",
     "version": 0,
-    "project": "perses"
+    "project": "perses",
+    "dashboardTimezone": "Europe/London"
   },
   "spec": {
     "variables": [

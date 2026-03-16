@@ -97,7 +97,11 @@ function TabButton({ index, projectName, ...props }: TabButtonProps): ReactEleme
 
   const handleDashboardCreation = (dashboardSelector: DashboardSelector): void => {
     navigate(`/projects/${dashboardSelector.project}/dashboard/new`, {
-      state: { name: dashboardSelector.dashboard, tags: dashboardSelector.tags },
+      state: {
+        name: dashboardSelector.dashboard,
+        tags: dashboardSelector.tags,
+        dashboardTimezone: dashboardSelector.dashboardTimezone,
+      },
     });
   };
 

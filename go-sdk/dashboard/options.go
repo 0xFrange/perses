@@ -40,6 +40,13 @@ func Name(name string) Option {
 	}
 }
 
+func Timezone(timezone string) Option {
+	return func(builder *Builder) error {
+		builder.Dashboard.Metadata.DashboardTimezone = timezone
+		return nil
+	}
+}
+
 func Description(description string) Option {
 	return func(builder *Builder) error {
 		if err := common.ValidateDescription(description); err != nil {
