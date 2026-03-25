@@ -40,16 +40,16 @@ func TestDacSetupCMD(t *testing.T) {
 
 	testSuite := []cmdTest.Suite{
 		{
-			Title:           "Nominal case with CUE",
-			Args:            []string{"--version", "v0.51.0"},
-			IsErrorExpected: false,
-			ExpectedMessage: "DaC setup for cue finished successfully\n",
+			Title:                "Nominal case with CUE",
+			Args:                 []string{"--version", "v0.51.0"},
+			IsErrorExpected:      false,
+			ExpectedRegexMessage: "DaC setup for cue finished successfully\n",
 		},
 		{
-			Title:           "Nominal case with Go",
-			Args:            []string{"--language", "go", "--version", "v0.50.0"},
-			IsErrorExpected: false,
-			ExpectedMessage: "DaC setup for go finished successfully\n",
+			Title:                "Nominal case with Go",
+			Args:                 []string{"--language", "go", "--version", "v0.50.0"},
+			IsErrorExpected:      false,
+			ExpectedRegexMessage: "DaC setup for go finished successfully\n",
 		},
 		{
 			Title:           "no version provided & no server",
