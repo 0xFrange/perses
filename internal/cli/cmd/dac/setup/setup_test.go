@@ -18,6 +18,7 @@ import (
 	"testing"
 
 	cmdTest "github.com/perses/perses/internal/cli/test"
+	"github.com/stretchr/testify/require"
 )
 
 func TestDacSetupCMD(t *testing.T) {
@@ -35,6 +36,10 @@ func TestDacSetupCMD(t *testing.T) {
 		if err := os.Chdir(originalWD); err != nil {
 			t.Fatalf("Failed to change back to the original directory: %v", err)
 		}
+	}()
+	_ = os.Remove("main.go")
+	defer func() {
+		_ = os.Remove("main.go")
 	}()
 
 	testSuite := []cmdTest.Suite{
@@ -70,4 +75,9 @@ func TestDacSetupCMD(t *testing.T) {
 		},
 	}
 	cmdTest.ExecuteSuiteTest(t, NewCMD, testSuite)
+
+	_, err = os.Stat("example.cue")
+	require.NoError(t, err)
+	_, err = os.Stat("main.go")
+	require.NoError(t, err)
 }
