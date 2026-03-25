@@ -32,8 +32,8 @@ import (
 const (
 	cueLanguage      = "cue"
 	goLanguage       = "go"
-	minVersionForGo  = "v0.44.0"        // Release that introduced the Go SDK
-	minVersionForCue = "v0.51.0-beta.0" // Release that brought the move to CUE's new modules -> TODO change to stable v0.51.0 once released
+	minVersionForGo  = "v0.44.0" // Release that introduced the Go SDK
+	minVersionForCue = "v0.51.0" // Release that brought the move to CUE's new modules
 	exampleCUEDac    = `package mydac
 
 import "github.com/perses/perses/cue/dac-utils/dashboard@v0"
