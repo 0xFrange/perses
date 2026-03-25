@@ -37,10 +37,6 @@ func TestDacSetupCMD(t *testing.T) {
 			t.Fatalf("Failed to change back to the original directory: %v", err)
 		}
 	}()
-	_ = os.Remove("main.go")
-	defer func() {
-		_ = os.Remove("main.go")
-	}()
 
 	testSuite := []cmdTest.Suite{
 		{
